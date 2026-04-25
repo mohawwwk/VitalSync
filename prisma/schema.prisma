@@ -1,0 +1,35 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                  Int          @id @default(autoincrement())
+  email               String       @unique
+  password            String
+  name                String
+  currentAssessmentId Int?
+  assessments         Assessment[]
+  createdAt           DateTime     @default(now())
+  updatedAt           DateTime     @updatedAt
+}
+
+model Assessment {
+  id                  Int      @id @default(autoincrement())
+  userId              Int
+  user                User     @relation(fields: [userId], references: [id])
+  overallScore        Int
+  dimensions          Json
+  burnoutRisk         String
+  cognitiveLoad       Int
+  rootCause           String
+  dominantDosha       String
+  personalityType     String
+  aiResults           Json
+  rawData             Json
+  createdAt           DateTime @default(now())
+}
