@@ -28,22 +28,22 @@ const AICoach = ({ userData }: { userData: any }) => {
     setIsTyping(true);
 
     try {
-      const res = await fetch("/api/ai/diagnose", {
+      const res = await fetch("/api/ai/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          ...userData,
-          chatMessage: input,
-          isChat: true
+          message: input,
+          userData: userData,
         }),
       });
 
       if (res.ok) {
         const data = await res.json();
-        // Since the diagnose route returns a full object, we might need a separate chat route
-        // or just use a mock for now if the diagnose route isn't meant for chat.
-        // Let's stick to mock for now but make it feel more real.
-        throw new Error("Chat not fully implemented in backend");
+        const aiMsg = { role: "assistant", content: data.response };
+        setMessages(prev => [...prev, aiMsg]);
+        setIsTyping(false);
+      } else {
+        throw new Error("Chat failed");
       }
     } catch (err) {
       setTimeout(() => {
