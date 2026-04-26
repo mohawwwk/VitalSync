@@ -71,7 +71,7 @@ const ServicesPage = () => {
             transition={{ delay: 0.2 }}
             className="text-xl text-text-secondary leading-relaxed"
           >
-            We've combined ancient healing modalities with cutting-edge artificial intelligence to create the world's most comprehensive wellness stack.
+                        We&apos;ve combined ancient healing modalities with cutting-edge artificial intelligence to create the world&apos;s most comprehensive wellness stack.
           </motion.p>
         </div>
 

@@ -54,7 +54,7 @@ const HowItWorks = () => {
             transition={{ delay: 0.1 }}
             className="text-text-secondary max-w-2xl mx-auto"
           >
-            We've streamlined the path to peak performance and inner balance.
+                        We&apos;ve streamlined the path to peak performance and inner balance.
           </motion.p>
         </div>
 

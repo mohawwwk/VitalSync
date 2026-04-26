@@ -22,7 +22,7 @@ const AboutPage = () => {
               VitalSync was born from a simple realization: the modern world is designed to drain us. Between digital overload, processed environments, and disconnected lifestyles, our biological systems are in a constant state of emergency.
             </p>
             <p className="text-lg text-text-muted leading-relaxed">
-              We've assembled a team of neuroscientists, Ayurvedic masters, and AI engineers to build a platform that doesn't just treat symptoms—it re-aligns your fundamental energy.
+              We&apos;ve assembled a team of neuroscientists, Ayurvedic masters, and AI engineers to build a platform that doesn&apos;t just treat symptoms—it re-aligns your fundamental energy.
             </p>
           </div>
           <div className="relative">

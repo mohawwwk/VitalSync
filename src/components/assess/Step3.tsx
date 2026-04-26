@@ -31,7 +31,7 @@ const Step3 = () => {
     <div className="space-y-8">
       <div className="space-y-2">
         <h2 className="text-3xl font-display font-bold">Mental Resonance.</h2>
-        <p className="text-text-secondary">Your mind's state determines your energetic output.</p>
+        <p className="text-text-secondary">Your mind&apos;s state determines your energetic output.</p>
       </div>
 
       <div className="space-y-8">
@@ -51,7 +51,7 @@ const Step3 = () => {
         </div>
 
         <div className="space-y-4">
-          <label className="text-sm font-medium text-text-muted">Select moods you've felt recently</label>
+          <label className="text-sm font-medium text-text-muted">Select moods you&apos;ve felt recently</label>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {moodTiles.map((mood) => (
               <button
@@ -71,7 +71,7 @@ const Step3 = () => {
         </div>
 
         <div className="space-y-4">
-          <label className="text-sm font-medium text-text-muted">Describe how you've been feeling lately</label>
+          <label className="text-sm font-medium text-text-muted">Describe how you&apos;ve been feeling lately</label>
           <textarea
             value={data.feelingDescription}
             onChange={(e) => updateData({ feelingDescription: e.target.value })}

@@ -39,7 +39,7 @@ const RadarPreview = () => {
               Most Apps Track 1.
             </h2>
             <p className="text-text-secondary text-lg font-body leading-relaxed max-w-xl">
-              VitalSync provides a holistic 360° view of your health. We don't just count steps; we measure your energetic frequency, Ayurvedic balance, and cognitive resonance.
+              VitalSync provides a holistic 360° view of your health. We don&apos;t just count steps; we measure your energetic frequency, Ayurvedic balance, and cognitive resonance.
             </p>
           </motion.div>
 

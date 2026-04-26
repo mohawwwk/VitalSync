@@ -15,7 +15,7 @@ const Step1 = () => {
     <div className="space-y-8">
       <div className="space-y-2">
         <h2 className="text-3xl font-display font-bold">The Basics.</h2>
-        <p className="text-text-secondary">Let's start with your profile. This helps us contextualize your data.</p>
+        <p className="text-text-secondary">Let&apos;s start with your profile. This helps us contextualize your data.</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">

@@ -3,6 +3,8 @@ import { callGrok } from "@/lib/grokClient";
 import prisma from "@/lib/prisma";
 import { getAuthToken, verifyToken } from "@/lib/auth";
 
+export const dynamic = "force-dynamic";
+
 export async function POST(req: Request) {
   try {
     const data = await req.json();

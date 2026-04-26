@@ -175,7 +175,7 @@ const ProfilePage = () => {
                 <Settings size={32} />
               </div>
               <h2 className="text-2xl font-display font-bold text-text-primary">{activeTab} coming soon</h2>
-              <p className="text-text-secondary max-w-sm mx-auto">We're finalizing the {activeTab.toLowerCase()} interface for the next update.</p>
+              <p className="text-text-secondary max-w-sm mx-auto">We&apos;re finalizing the {activeTab.toLowerCase()} interface for the next update.</p>
             </div>
           )}
 
