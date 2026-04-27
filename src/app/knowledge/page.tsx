@@ -16,10 +16,10 @@ const articles = [
     title: "The Neuro-Circuitry of Burnout",
     category: "Neuroscience",
     readTime: "8 min read",
-    image: "https://images.unsplash.com/photo-1559757175-5700dde675bc?q=80&w=2000",
+    image: "https://images.unsplash.com/photo-1507413245164-6160d8298b31?q=80&w=2000",
     excerpt: "Understanding the HPA axis and how chronic stress rewires your prefrontal cortex.",
     url: "https://www.nature.com/articles/s41583-018-0027-0",
-    video: "https://www.youtube.com/watch?v=hB7aGnfL-50",
+    video: "https://www.youtube.com/watch?v=G078YpAn3pA",
     featured: true
   },
   {
@@ -27,7 +27,7 @@ const articles = [
     title: "Neuroplasticity: How the Brain Changes",
     category: "Neuroscience",
     readTime: "10 min read",
-    image: "https://images.unsplash.com/photo-1557426272-fc759fdf7a8d?q=80&w=2000",
+    image: "https://images.unsplash.com/photo-1559757175-5700dde675bc?q=80&w=2000",
     excerpt: "Deep dive into synaptic pruning and long-term potentiation.",
     url: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3501956/",
     video: "https://www.youtube.com/watch?v=LNHBMFCzznE",
@@ -38,7 +38,7 @@ const articles = [
     title: "The Role of Dopamine in Motivation",
     category: "Neuroscience",
     readTime: "9 min read",
-    image: "https://images.unsplash.com/photo-1518160111630-d41982f1bc2c?q=80&w=2000",
+    image: "https://images.unsplash.com/photo-1532187863486-abf9d39d99c5?q=80&w=2000",
     excerpt: "Why the pursuit of reward is more addictive than the reward itself.",
     url: "https://www.cell.com/neuron/fulltext/S0896-6273(17)30327-0",
     video: "https://www.youtube.com/watch?v=QmOF0crdyRU",
@@ -49,10 +49,10 @@ const articles = [
     title: "Sleep and Memory Consolidation",
     category: "Neuroscience",
     readTime: "7 min read",
-    image: "https://images.unsplash.com/photo-1454991727061-be514eae86f7?q=80&w=2000",
+    image: "https://images.unsplash.com/photo-1541480601022-2308c0f02487?q=80&w=2000",
     excerpt: "How the hippocampus and cortex communicate during REM sleep.",
     url: "https://www.nature.com/articles/nrn3402",
-    video: "https://www.youtube.com/watch?v=5MuIMqhT8DM",
+    video: "https://www.youtube.com/watch?v=2Tz8m9HIsrM",
     featured: false
   },
   {
@@ -60,7 +60,7 @@ const articles = [
     title: "The Gut-Brain Axis",
     category: "Neuroscience",
     readTime: "11 min read",
-    image: "https://images.unsplash.com/photo-1512428559087-560fa5ceab42?q=80&w=2000",
+    image: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=2000",
     excerpt: "How your microbiome influences your mood and decision-making.",
     url: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4367209/",
     video: "https://www.youtube.com/watch?v=Vz5lOND7HSc",
@@ -74,7 +74,7 @@ const articles = [
     image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=2000",
     excerpt: "Minimizing mental friction for better productivity.",
     url: "https://link.springer.com/chapter/10.1007/978-1-4419-1428-6_110",
-    video: "https://www.youtube.com/watch?v=Stm67fV_nHY",
+    video: "https://www.youtube.com/watch?v=I0vA_D3-S2o",
     featured: false
   },
   {
@@ -93,7 +93,7 @@ const articles = [
     title: "Oxytocin and Social Connection",
     category: "Neuroscience",
     readTime: "8 min read",
-    image: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=2000",
+    image: "https://images.unsplash.com/photo-1521791136064-7986c2959210?q=80&w=2000",
     excerpt: "The biological basis of trust and tribal behavior.",
     url: "https://www.nature.com/articles/nrn2630",
     video: "https://www.youtube.com/watch?v=XvS7v0oJ4vU",
@@ -107,7 +107,7 @@ const articles = [
     image: "https://images.unsplash.com/photo-1502466650593-b65a2c690da0?q=80&w=2000",
     excerpt: "Understanding the dopamine deficit in focus disorders.",
     url: "https://www.nature.com/articles/nrn1839",
-    video: "https://www.youtube.com/watch?v=jhcn1_zY484",
+    video: "https://www.youtube.com/watch?v=hFL6qRIJZ_Y",
     featured: false
   },
   {
@@ -115,10 +115,10 @@ const articles = [
     title: "Brain-Computer Interfaces",
     category: "Neuroscience",
     readTime: "15 min read",
-    image: "https://images.unsplash.com/photo-1516110833967-0b5716ca13e7?q=80&w=2000",
+    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc51?q=80&w=2000",
     excerpt: "The future of neural links and cognitive enhancement.",
     url: "https://www.nature.com/articles/nrn.2016.113",
-    video: "https://www.youtube.com/watch?v=2R8T39Z4X-s",
+    video: "https://www.youtube.com/watch?v=7TJxJmKzK_o",
     featured: false
   },
 
@@ -139,7 +139,7 @@ const articles = [
     title: "Pitta: The Fire of Metabolism",
     category: "Ayurveda",
     readTime: "10 min read",
-    image: "https://images.unsplash.com/photo-1515377196247-223877d34cc4?q=80&w=2000",
+    image: "https://images.unsplash.com/photo-1517142089942-ba376ce32a2e?q=80&w=2000",
     excerpt: "Managing inflammation and digestion through Pitta pacifying diets.",
     url: "https://www.banyanbotanicals.com/info/ayurvedic-living/living-ayurveda/diet/pitta-pacifying-diet/",
     video: "https://www.youtube.com/watch?v=f-nO31M8w3M",
@@ -150,7 +150,7 @@ const articles = [
     title: "Kapha: The Foundation of Strength",
     category: "Ayurveda",
     readTime: "11 min read",
-    image: "https://images.unsplash.com/photo-1518310383802-640c2de311b2?q=80&w=2000",
+    image: "https://images.unsplash.com/photo-1552196564-972b46b52e47?q=80&w=2000",
     excerpt: "Overcoming lethargy and congestion with invigorating practices.",
     url: "https://www.ayurveda.com/kapha-balancing-diet/",
     video: "https://www.youtube.com/watch?v=pW-u1G5Osk8",
@@ -175,7 +175,7 @@ const articles = [
     image: "https://images.unsplash.com/photo-1512132411229-c30391241dd8?q=80&w=2000",
     excerpt: "How sweet, sour, salty, bitter, pungent, and astringent flavors affect health.",
     url: "https://www.banyanbotanicals.com/info/ayurvedic-living/living-ayurveda/diet/six-tastes/",
-    video: "https://www.youtube.com/watch?v=XzUv0N0R00A",
+    video: "https://www.youtube.com/watch?v=vVj_u3uPq-Y",
     featured: false
   },
   {
@@ -183,7 +183,7 @@ const articles = [
     title: "Prakriti vs. Vikriti",
     category: "Ayurveda",
     readTime: "10 min read",
-    image: "https://images.unsplash.com/photo-1512428559087-560fa5ceab42?q=80&w=2000",
+    image: "https://images.unsplash.com/photo-1498837167922-ddd27525d352?q=80&w=2000",
     excerpt: "Understanding your birth constitution vs. your current state.",
     url: "https://www.ayurveda.com/prakriti-vikriti/",
     video: "https://www.youtube.com/watch?v=S0T009-87x8",
@@ -197,7 +197,7 @@ const articles = [
     image: "https://images.unsplash.com/photo-1514733670139-4d87a1941d55?q=80&w=2000",
     excerpt: "Ashwagandha, Triphala, and Brahmi: The power of adaptogens.",
     url: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3252722/",
-    video: "https://www.youtube.com/watch?v=vVj_u3uPq-Y",
+    video: "https://www.youtube.com/watch?v=XzUv0N0R00A",
     featured: false
   },
   {
@@ -205,10 +205,10 @@ const articles = [
     title: "Agni: The Digestive Fire",
     category: "Ayurveda",
     readTime: "7 min read",
-    image: "https://images.unsplash.com/photo-1515377196247-223877d34cc4?q=80&w=2000",
+    image: "https://images.unsplash.com/photo-1505253716362-af98a8740443?q=80&w=2000",
     excerpt: "Why gut health is the cornerstone of all wellness in Ayurveda.",
     url: "https://www.ayurveda.com/agni-digestive-fire/",
-    video: "https://www.youtube.com/watch?v=XzUv0N0R00A",
+    video: "https://www.youtube.com/watch?v=YpZ6G9k1pU4",
     featured: false
   },
   {
@@ -216,10 +216,10 @@ const articles = [
     title: "Ojas, Tejas, and Prana",
     category: "Ayurveda",
     readTime: "11 min read",
-    image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=2000",
+    image: "https://images.unsplash.com/photo-1445510861639-5651173bc5d5?q=80&w=2000",
     excerpt: "The subtle essences of vitality, radiance, and life force.",
     url: "https://www.banyanbotanicals.com/info/ayurvedic-living/living-ayurveda/lifestyle/ojas-tejas-prana/",
-    video: "https://www.youtube.com/watch?v=YpZ6G9k1pU4",
+    video: "https://www.youtube.com/watch?v=vBFInKmnr_g",
     featured: false
   },
   {
@@ -230,7 +230,7 @@ const articles = [
     image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=2000",
     excerpt: "The benefits of self-massage for the nervous system.",
     url: "https://www.banyanbotanicals.com/info/ayurvedic-living/living-ayurveda/lifestyle/self-oil-massage-abhyanga/",
-    video: "https://www.youtube.com/watch?v=S0T009-87x8",
+    video: "https://www.youtube.com/watch?v=3M_k8C6w-hY",
     featured: false
   },
 
@@ -251,7 +251,7 @@ const articles = [
     title: "Cold Plunge and Mitochondrial Health",
     category: "Bio-Hacking",
     readTime: "9 min read",
-    image: "https://images.unsplash.com/photo-1518310383802-640c2de311b2?q=80&w=2000",
+    image: "https://images.unsplash.com/photo-1471194402529-8e0f5a675de6?q=80&w=2000",
     excerpt: "Activating brown fat and boosting norepinephrine levels.",
     url: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9518606/",
     video: "https://www.youtube.com/watch?v=m6XAbqH-q8M",
@@ -265,7 +265,7 @@ const articles = [
     image: "https://images.unsplash.com/photo-1512428559087-560fa5ceab42?q=80&w=2000",
     excerpt: "How real-time data helps you optimize metabolic flexibility.",
     url: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7311140/",
-    video: "https://www.youtube.com/watch?v=0_u66Yv_S6E",
+    video: "https://www.youtube.com/watch?v=3-M9qC4S2eI",
     featured: false
   },
   {
@@ -276,7 +276,7 @@ const articles = [
     image: "https://images.unsplash.com/photo-1516110833967-0b5716ca13e7?q=80&w=2000",
     excerpt: "A guide to L-Theanine, Caffeine, and Bacopa Monnieri.",
     url: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5021479/",
-    video: "https://www.youtube.com/watch?v=LNHBMFCzznE",
+    video: "https://www.youtube.com/watch?v=jW0-Vat3L68",
     featured: false
   },
   {
@@ -287,7 +287,7 @@ const articles = [
     image: "https://images.unsplash.com/photo-1515377196247-223877d34cc4?q=80&w=2000",
     excerpt: "Photobiomodulation and its effect on cellular energy production.",
     url: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4126803/",
-    video: "https://www.youtube.com/watch?v=XzUv0N0R00A",
+    video: "https://www.youtube.com/watch?v=GvS0-5G78-4",
     featured: false
   },
   {
@@ -309,7 +309,7 @@ const articles = [
     image: "https://images.unsplash.com/photo-1512132411229-c30391241dd8?q=80&w=2000",
     excerpt: "How periodic fasting triggers cellular cleanup.",
     url: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3106288/",
-    video: "https://www.youtube.com/watch?v=LqN6849C03Y",
+    video: "https://www.youtube.com/watch?v=z3J8jLz_f_M",
     featured: false
   },
   {
@@ -320,7 +320,7 @@ const articles = [
     image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=2000",
     excerpt: "Wim Hof vs. Box Breathing: The science of CO2 tolerance.",
     url: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4034508/",
-    video: "https://www.youtube.com/watch?v=m8rrnReZ_No",
+    video: "https://www.youtube.com/watch?v=tybOi4hjZFQ",
     featured: false
   },
   {
@@ -342,7 +342,7 @@ const articles = [
     image: "https://images.unsplash.com/photo-1557426272-fc759fdf7a8d?q=80&w=2000",
     excerpt: "Comparing Oura, Whoop, and Apple Watch metrics.",
     url: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7213426/",
-    video: "https://www.youtube.com/watch?v=QmOF0crdyRU",
+    video: "https://www.youtube.com/watch?v=vBFInKmnr_g",
     featured: false
   },
 
@@ -396,7 +396,7 @@ const articles = [
     title: "Zero Point Energy and Healing",
     category: "Quantum Energy",
     readTime: "10 min read",
-    image: "https://images.unsplash.com/photo-1559757175-5700dde675bc?q=80&w=2000",
+    image: "https://images.unsplash.com/photo-1518310383802-640c2de311b2?q=80&w=2000",
     excerpt: "The theoretical basis for non-local healing modalities.",
     url: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4654789/",
     video: "https://www.youtube.com/watch?v=LqN6849C03Y",
@@ -475,7 +475,7 @@ const articles = [
     title: "Anti-Nutrients in Modern Diets",
     category: "Nutrition",
     readTime: "9 min read",
-    image: "https://images.unsplash.com/photo-1512428559087-560fa5ceab42?q=80&w=2000",
+    image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=2000",
     excerpt: "Understanding lectins, oxalates, and phytates.",
     url: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7600777/",
     video: "https://www.youtube.com/watch?v=f-nO31M8w3M",
