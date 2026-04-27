@@ -14,7 +14,7 @@ const experts = [
     bio: "Specializes in identifying energy leaks and re-aligning bio-magnetic fields.",
     rating: 4.9,
     reviews: 128,
-    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Aris",
+    image: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=800",
     tags: ["Energy", "Neuroscience"]
   },
   {
@@ -24,7 +24,7 @@ const experts = [
     bio: "Expert in Dosha-specific nutrition and seasonal biological optimization.",
     rating: 5.0,
     reviews: 245,
-    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sienna",
+    image: "https://images.unsplash.com/photo-1594824476967-48c8b964273f?q=80&w=800",
     tags: ["Ayurveda", "Nutrition"]
   },
   {
@@ -34,7 +34,7 @@ const experts = [
     bio: "Master of meridian point therapy for chronic stress and somatic release.",
     rating: 4.8,
     reviews: 89,
-    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Marcus",
+    image: "https://images.unsplash.com/photo-1537368910025-700350fe46c7?q=80&w=800",
     tags: ["Somatic", "Recovery"]
   }
 ];
