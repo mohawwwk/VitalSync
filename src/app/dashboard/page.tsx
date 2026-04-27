@@ -28,29 +28,30 @@ const DashboardPage = () => {
         if (res.ok) {
           const result = await res.json();
           setData(result);
-          // Sync store with database
           setResults(result);
         } else if (res.status === 404) {
-          // No assessment found in DB for this user
-          // Clear any local results that might be "fake" or from other users
-          setResults(null);
-          router.push("/assess");
-          return;
-        } else {
-          // Other error (unauthorized, etc)
+          // If we have results in the store, use them instead of redirecting
+          if (results) {
+            setData(results);
+          } else {
+            router.push("/assess");
+          }
+        } else if (res.status === 401) {
           router.push("/login");
-          return;
         }
       } catch (err) {
         console.error("Dashboard Fetch Error:", err);
-        router.push("/assess");
-        return;
+        if (results) {
+          setData(results);
+        } else {
+          router.push("/assess");
+        }
       } finally {
         setLoading(false);
       }
     };
     fetchData();
-  }, [router, setResults]);
+  }, [router, setResults, results]);
 
   if (loading) {
     return (

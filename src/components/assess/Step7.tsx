@@ -49,9 +49,16 @@ const Step7 = () => {
         body: JSON.stringify(data),
       });
 
-      if (!res.ok) throw new Error("Diagnosis failed");
-      
       const results = await res.json();
+      
+      if (!res.ok) {
+        throw new Error(results.error || "Diagnosis failed");
+      }
+      
+      if (!results || results.error) {
+        throw new Error(results?.error || "Invalid AI response");
+      }
+      
       setResults(results);
       
       setTimeout(() => {
