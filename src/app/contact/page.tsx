@@ -7,7 +7,7 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen pt-32 pb-20 bg-background flex items-center justify-center px-6">
       <div className="max-w-2xl text-center space-y-8">
-        <h1 className="text-5xl font-display font-bold text-text-primary">Let's Connect.</h1>
+        <h1 className="text-5xl font-display font-bold text-text-primary">Let&apos;s Connect.</h1>
         <p className="text-xl text-text-secondary">
           Have questions about your blueprint or want to partner with us?
         </p>

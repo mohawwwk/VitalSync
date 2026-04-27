@@ -10,10 +10,10 @@ export default function CareersPage() {
       <div className="max-w-2xl text-center space-y-8">
         <h1 className="text-5xl font-display font-bold text-text-primary">Join the Evolution.</h1>
         <p className="text-xl text-text-secondary">
-          We're always looking for neuroscientists, AI engineers, and wellness masters to help us build the future of vitality.
+          We&apos;re always looking for neuroscientists, AI engineers, and wellness masters to help us build the future of vitality.
         </p>
         <div className="glass p-8 rounded-3xl border-white/5">
-          <p className="text-text-muted">Currently, we're building our core team. Check back soon for open positions.</p>
+          <p className="text-text-muted">Currently, we&apos;re building our core team. Check back soon for open positions.</p>
         </div>
         <Link href="/" className="text-primary font-bold hover:underline">Back to Home</Link>
       </div>
