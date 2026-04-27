@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Loader2 } from "lucide-react";
+import { Skeleton } from "@/components/ui/Skeleton";
 import ScoreRing from "@/components/dashboard/ScoreRing";
 import RadarChartBreakdown from "@/components/dashboard/RadarChartBreakdown";
 import RootCauseCard from "@/components/dashboard/RootCauseCard";
@@ -14,6 +15,7 @@ import WeeklyPlan from "@/components/dashboard/WeeklyPlan";
 import AICoach from "@/components/dashboard/AICoach";
 import { useRouter } from "next/navigation";
 import { useAssessmentStore } from "@/store/useAssessmentStore";
+import { assessmentService } from "@/services/api";
 
 const DashboardPage = () => {
   const { results, setResults } = useAssessmentStore();
@@ -24,7 +26,7 @@ const DashboardPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("/api/ai/latest-assessment");
+        const res = await assessmentService.getLatest();
         if (res.ok) {
           const result = await res.json();
           setData(result);
@@ -55,8 +57,28 @@ const DashboardPage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <Loader2 className="w-10 h-10 text-primary animate-spin" />
+      <div className="min-h-screen pt-24 pb-12 px-6 bg-background">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <div className="lg:col-span-8 space-y-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <Skeleton className="h-[200px] rounded-[2rem]" />
+              <div className="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <Skeleton className="h-[200px] rounded-[2rem]" />
+                <Skeleton className="h-[200px] rounded-[2rem]" />
+              </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <Skeleton className="h-[400px] rounded-[2rem]" />
+              <div className="space-y-8">
+                <Skeleton className="h-[180px] rounded-[2rem]" />
+                <Skeleton className="h-[180px] rounded-[2rem]" />
+              </div>
+            </div>
+          </div>
+          <div className="lg:col-span-4 h-[calc(100vh-140px)]">
+            <Skeleton className="h-full rounded-[2rem]" />
+          </div>
+        </div>
       </div>
     );
   }

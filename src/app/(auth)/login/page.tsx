@@ -1,16 +1,18 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 
-export default function LoginPage() {
+function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const from = searchParams.get("from") || "/dashboard";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,7 +29,7 @@ export default function LoginPage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Login failed");
 
-      router.push("/dashboard");
+      router.push(from);
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -35,6 +37,47 @@ export default function LoginPage() {
     }
   };
 
+  return (
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="space-y-4">
+        <div>
+          <label className="block text-sm font-medium text-text-muted mb-2">Email Address</label>
+          <input
+            type="email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full bg-surface border border-border rounded-xl px-4 py-3 focus:outline-none focus:border-primary transition-colors text-text-primary"
+            placeholder="name@example.com"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-text-muted mb-2">Password</label>
+          <input
+            type="password"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full bg-surface border border-border rounded-xl px-4 py-3 focus:outline-none focus:border-primary transition-colors text-text-primary"
+            placeholder="••••••••"
+          />
+        </div>
+      </div>
+
+      {error && <p className="text-accent-warm text-sm">{error}</p>}
+
+      <button
+        type="submit"
+        disabled={loading}
+        className="w-full bg-primary text-white py-4 rounded-xl font-bold hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-50"
+      >
+        {loading ? "Signing in..." : "Sign In"}
+      </button>
+    </form>
+  );
+}
+
+export default function LoginPage() {
   return (
     <div className="min-h-screen flex bg-background">
       {/* Left: Form */}
@@ -49,42 +92,9 @@ export default function LoginPage() {
             <p className="text-text-secondary font-body">Enter your credentials to access your wellness dashboard.</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-text-muted mb-2">Email Address</label>
-                <input
-                  type="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full bg-surface border border-border rounded-xl px-4 py-3 focus:outline-none focus:border-primary transition-colors text-text-primary"
-                  placeholder="name@example.com"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-text-muted mb-2">Password</label>
-                <input
-                  type="password"
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full bg-surface border border-border rounded-xl px-4 py-3 focus:outline-none focus:border-primary transition-colors text-text-primary"
-                  placeholder="••••••••"
-                />
-              </div>
-            </div>
-
-            {error && <p className="text-accent-warm text-sm">{error}</p>}
-
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-primary text-white py-4 rounded-xl font-bold hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-50"
-            >
-              {loading ? "Signing in..." : "Sign In"}
-            </button>
-          </form>
+          <Suspense fallback={<div className="text-text-secondary text-sm">Loading login form...</div>}>
+            <LoginForm />
+          </Suspense>
 
           <p className="text-center text-text-secondary text-sm font-body">
             Don&apos;t have an account?{" "}

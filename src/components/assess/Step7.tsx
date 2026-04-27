@@ -4,25 +4,28 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useAssessmentStore } from "@/store/useAssessmentStore";
-import { Check } from "lucide-react";
+import { Check, AlertCircle } from "lucide-react";
+import { assessmentService, userService } from "@/services/api";
 
 const Step7 = () => {
   const { data, setStep, setResults } = useAssessmentStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [loadingText, setLoadingText] = useState("Analysing your wellness profile...");
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
   const handleSubmit = async () => {
+    setError(null);
     // Check if user is logged in first
     try {
-      const checkRes = await fetch("/api/user/me");
+      const checkRes = await userService.getMe();
       if (!checkRes.ok) {
         // Not logged in - redirect to signup but keep assessment data in store
-        router.push("/signup");
+        router.push("/signup?from=/assess");
         return;
       }
     } catch (err) {
-      router.push("/signup");
+      router.push("/signup?from=/assess");
       return;
     }
 
@@ -43,12 +46,7 @@ const Step7 = () => {
     }, 2000);
 
     try {
-      const res = await fetch("/api/ai/diagnose", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-
+      const res = await assessmentService.submit(data);
       const results = await res.json();
       
       if (!res.ok) {
@@ -65,11 +63,11 @@ const Step7 = () => {
         clearInterval(interval);
         router.push("/dashboard");
       }, 1000);
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
       setIsSubmitting(false);
       clearInterval(interval);
-      alert("Something went wrong. Please try again.");
+      setError(err.message || "Something went wrong. Please try again.");
     }
   };
 
@@ -122,6 +120,13 @@ const Step7 = () => {
         <h2 className="text-3xl font-display font-bold">Review & Sync.</h2>
         <p className="text-text-secondary">Ready to discover your wellness blueprint?</p>
       </div>
+
+      {error && (
+        <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-xl flex items-center gap-3 text-red-500 text-sm">
+          <AlertCircle size={18} />
+          {error}
+        </div>
+      )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {[

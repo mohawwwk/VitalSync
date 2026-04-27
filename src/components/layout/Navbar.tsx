@@ -5,12 +5,24 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, User } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { userService } from "@/services/api";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const res = await userService.getMe();
+        setIsLoggedIn(res.ok);
+      } catch {
+        setIsLoggedIn(false);
+      }
+    };
+    checkAuth();
+
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
@@ -20,11 +32,16 @@ const Navbar = () => {
 
   const navLinks = [
     { name: "About", href: "/about" },
-    { name: "Services", href: "/services" },
     { name: "Knowledge Hub", href: "/knowledge" },
-    { name: "Dashboard", href: "/dashboard" },
+    ...(isLoggedIn ? [{ name: "Dashboard", href: "/dashboard" }] : []),
     { name: "Booking", href: "/booking" },
   ];
+
+  const handleLogout = async () => {
+    await userService.logout();
+    setIsLoggedIn(false);
+    window.location.href = "/";
+  };
 
   return (
     <nav
@@ -54,12 +71,31 @@ const Navbar = () => {
               {link.name}
             </Link>
           ))}
-          <Link
-            href="/profile"
-            className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-text-muted hover:text-primary hover:border-primary transition-all"
-          >
-            <User size={18} />
-          </Link>
+          
+          {isLoggedIn ? (
+            <>
+              <Link
+                href="/profile"
+                className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-text-muted hover:text-primary hover:border-primary transition-all"
+              >
+                <User size={18} />
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="text-sm font-bold text-text-secondary hover:text-red-500 transition-colors"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <Link
+              href="/login"
+              className="text-sm font-bold text-text-secondary hover:text-primary transition-colors"
+            >
+              Login
+            </Link>
+          )}
+
           <Link
             href="/assess"
             className="px-6 py-2 bg-primary text-white rounded-full text-sm font-bold hover:scale-105 transition-transform"
@@ -96,13 +132,36 @@ const Navbar = () => {
                 {link.name}
               </Link>
             ))}
-            <Link
-              href="/profile"
-              className="text-lg font-medium text-text-secondary flex items-center gap-2"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              <User size={18} /> Profile
-            </Link>
+            
+            {isLoggedIn ? (
+              <>
+                <Link
+                  href="/profile"
+                  className="text-lg font-medium text-text-secondary flex items-center gap-2"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <User size={18} /> Profile
+                </Link>
+                <button
+                  onClick={() => {
+                    handleLogout();
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="text-lg font-medium text-red-500 text-left"
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <Link
+                href="/login"
+                className="text-lg font-medium text-text-secondary"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Login
+              </Link>
+            )}
+
             <Link
               href="/assess"
               className="w-full py-4 bg-primary text-white rounded-xl text-center font-bold"

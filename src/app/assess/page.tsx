@@ -3,6 +3,8 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAssessmentStore } from "@/store/useAssessmentStore";
+import { useRouter } from "next/navigation";
+import { userService } from "@/services/api";
 import Step1 from "@/components/assess/Step1";
 import Step2 from "@/components/assess/Step2";
 import Step3 from "@/components/assess/Step3";
@@ -13,6 +15,36 @@ import Step7 from "@/components/assess/Step7";
 
 const AssessmentPage = () => {
   const { step } = useAssessmentStore();
+  const router = useRouter();
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    // Check if user is logged in
+    const checkAuth = async () => {
+      try {
+        const res = await userService.getMe();
+        if (!res.ok) {
+          router.push("/login?from=/assess");
+        } else {
+          setLoading(false);
+        }
+      } catch (err) {
+        router.push("/login?from=/assess");
+      }
+    };
+    checkAuth();
+  }, [router]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+          <p className="text-text-secondary font-display animate-pulse">Initializing Assessment...</p>
+        </div>
+      </div>
+    );
+  }
 
   const renderStep = () => {
     switch (step) {

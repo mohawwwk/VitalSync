@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 
-export default function SignupPage() {
+function SignupForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -13,6 +13,8 @@ export default function SignupPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const from = searchParams.get("from") || "/assess";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,7 +35,7 @@ export default function SignupPage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Signup failed");
 
-      router.push("/assess");
+      router.push(from);
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -41,6 +43,69 @@ export default function SignupPage() {
     }
   };
 
+  return (
+    <form onSubmit={handleSubmit} className="space-y-5">
+      <div className="space-y-4">
+        <div>
+          <label className="block text-sm font-medium text-text-muted mb-2">Full Name</label>
+          <input
+            type="text"
+            required
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full bg-surface border border-border rounded-xl px-4 py-3 focus:outline-none focus:border-primary transition-colors text-text-primary"
+            placeholder="John Doe"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-text-muted mb-2">Email Address</label>
+          <input
+            type="email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full bg-surface border border-border rounded-xl px-4 py-3 focus:outline-none focus:border-primary transition-colors text-text-primary"
+            placeholder="name@example.com"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-text-muted mb-2">Password</label>
+          <input
+            type="password"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full bg-surface border border-border rounded-xl px-4 py-3 focus:outline-none focus:border-primary transition-colors text-text-primary"
+            placeholder="••••••••"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-text-muted mb-2">Confirm Password</label>
+          <input
+            type="password"
+            required
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            className="w-full bg-surface border border-border rounded-xl px-4 py-3 focus:outline-none focus:border-primary transition-colors text-text-primary"
+            placeholder="••••••••"
+          />
+        </div>
+      </div>
+
+      {error && <p className="text-accent-warm text-sm">{error}</p>}
+
+      <button
+        type="submit"
+        disabled={loading}
+        className="w-full bg-primary text-white py-4 rounded-xl font-bold hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-50"
+      >
+        {loading ? "Creating account..." : "Create Account"}
+      </button>
+    </form>
+  );
+}
+
+export default function SignupPage() {
   return (
     <div className="min-h-screen flex bg-background">
       {/* Left: Illustration */}
@@ -82,64 +147,9 @@ export default function SignupPage() {
             <p className="text-text-secondary font-body">Enter your details to begin your personalized assessment.</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-5">
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-text-muted mb-2">Full Name</label>
-                <input
-                  type="text"
-                  required
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="w-full bg-surface border border-border rounded-xl px-4 py-3 focus:outline-none focus:border-primary transition-colors text-text-primary"
-                  placeholder="John Doe"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-text-muted mb-2">Email Address</label>
-                <input
-                  type="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full bg-surface border border-border rounded-xl px-4 py-3 focus:outline-none focus:border-primary transition-colors text-text-primary"
-                  placeholder="name@example.com"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-text-muted mb-2">Password</label>
-                <input
-                  type="password"
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full bg-surface border border-border rounded-xl px-4 py-3 focus:outline-none focus:border-primary transition-colors text-text-primary"
-                  placeholder="••••••••"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-text-muted mb-2">Confirm Password</label>
-                <input
-                  type="password"
-                  required
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="w-full bg-surface border border-border rounded-xl px-4 py-3 focus:outline-none focus:border-primary transition-colors text-text-primary"
-                  placeholder="••••••••"
-                />
-              </div>
-            </div>
-
-            {error && <p className="text-accent-warm text-sm">{error}</p>}
-
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-primary text-white py-4 rounded-xl font-bold hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-50"
-            >
-              {loading ? "Creating account..." : "Create Account"}
-            </button>
-          </form>
+          <Suspense fallback={<div className="text-text-secondary text-sm">Loading signup form...</div>}>
+            <SignupForm />
+          </Suspense>
 
           <p className="text-center text-text-secondary text-sm font-body">
             Already have an account?{" "}
