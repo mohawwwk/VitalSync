@@ -1,9 +1,23 @@
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
+import { jwtVerify } from "jose";
 
-export function middleware(request: NextRequest) {
+const JWT_SECRET = process.env.JWT_SECRET || "fallback-secret-change-me";
+const encodedSecret = new TextEncoder().encode(JWT_SECRET);
+
+export async function middleware(request: NextRequest) {
   const token = request.cookies.get("token")?.value;
   const { pathname } = request.nextUrl;
+
+  let isValidToken = false;
+  if (token) {
+    try {
+      await jwtVerify(token, encodedSecret);
+      isValidToken = true;
+    } catch (error) {
+      isValidToken = false;
+    }
+  }
 
   // Define public routes
   const isPublicRoute = 
@@ -12,7 +26,7 @@ export function middleware(request: NextRequest) {
     pathname.startsWith("/signup") || 
     pathname.startsWith("/about") ||
     pathname.startsWith("/api/auth") ||
-    pathname.startsWith("/knowledge") || // Knowledge is public but articles might be restricted? User said "users MUST be logged in to: Access assessments, Submit responses, View results"
+    pathname.startsWith("/knowledge") || 
     pathname === "/contact" ||
     pathname === "/careers" ||
     pathname === "/privacy" ||
@@ -24,19 +38,23 @@ export function middleware(request: NextRequest) {
     pathname.startsWith("/dashboard") ||
     pathname.startsWith("/assess") ||
     pathname.startsWith("/profile") ||
-    pathname.startsWith("/api/user") ||
-    pathname.startsWith("/api/ai/diagnose") ||
-    pathname.startsWith("/api/ai/latest-assessment");
+    pathname.startsWith("/booking");
 
-  // If there's no token and the user is trying to access a protected route, redirect to login
-  if (!token && isProtectedRoute) {
+  // If there's no valid token and the user is trying to access a protected route, redirect to login
+  if (!isValidToken && isProtectedRoute) {
     const loginUrl = new URL("/login", request.url);
     loginUrl.searchParams.set("from", pathname);
-    return NextResponse.redirect(loginUrl);
+    
+    // Clear the invalid token cookie if it exists
+    const response = NextResponse.redirect(loginUrl);
+    if (token) {
+      response.cookies.delete("token");
+    }
+    return response;
   }
 
-  // If there's a token and the user is trying to access login/signup, redirect to dashboard
-  if (token && (pathname.startsWith("/login") || pathname.startsWith("/signup"))) {
+  // If there's a valid token and the user is trying to access login/signup, redirect to dashboard
+  if (isValidToken && (pathname.startsWith("/login") || pathname.startsWith("/signup"))) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
@@ -51,7 +69,8 @@ export const config = {
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
+     * - public folder assets
      */
-    "/((?!api|_next/static|_next/image|favicon.ico).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico|public|.*\\..*).*)",
   ],
 };

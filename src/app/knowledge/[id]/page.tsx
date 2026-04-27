@@ -17,14 +17,14 @@ export default function ArticlePage() {
 
   if (!article) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-background text-text-primary">
-        <h1 className="text-4xl font-display font-bold mb-4">Article Not Found</h1>
-        <button 
-          onClick={() => router.push("/knowledge")}
-          className="text-primary hover:underline flex items-center gap-2"
+      <div className="min-h-screen flex flex-col items-center justify-center bg-background text-text-primary px-6 text-center">
+        <h1 className="text-4xl font-display font-bold mb-4">Blueprint Not Found</h1>
+        <Link 
+          href="/knowledge"
+          className="text-primary hover:underline flex items-center gap-2 font-bold"
         >
           <ArrowLeft size={20} /> Back to Knowledge Hub
-        </button>
+        </Link>
       </div>
     );
   }
@@ -33,15 +33,13 @@ export default function ArticlePage() {
     <div className="min-h-screen pt-32 pb-20 bg-background">
       <div className="max-w-4xl mx-auto px-6">
         {/* Navigation */}
-        <motion.button
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          onClick={() => router.push("/knowledge")}
-          className="flex items-center gap-2 text-text-secondary hover:text-primary transition-colors mb-12 group"
+        <Link
+          href="/knowledge"
+          className="inline-flex items-center gap-2 text-text-secondary hover:text-primary transition-colors mb-12 group font-bold"
         >
           <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
           Back to Archive
-        </motion.button>
+        </Link>
 
         {/* Header */}
         <header className="space-y-8 mb-16">
@@ -86,14 +84,15 @@ export default function ArticlePage() {
           className="relative aspect-[21/9] rounded-[2.5rem] overflow-hidden mb-16 border border-white/5"
         >
           <Image
-            src={article.image || "/placeholder-knowledge.jpg"}
+            src={article.image || "https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&q=80&w=2000"}
             alt={article.title}
             fill
             className="object-cover"
             priority
             onError={e => {
               const target = e.target as HTMLImageElement;
-              if (target.src !== '/placeholder-knowledge.jpg') target.src = '/placeholder-knowledge.jpg';
+              const fallback = "https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&q=80&w=2000";
+              if (target.src !== fallback) target.src = fallback;
             }}
           />
         </motion.div>
@@ -146,10 +145,15 @@ export default function ArticlePage() {
                       <div className="group glass p-4 rounded-2xl flex gap-4 items-center hover:border-primary/50 transition-all">
                         <div className="relative w-20 h-20 rounded-xl overflow-hidden flex-shrink-0">
                           <Image
-                            src={related.image || "/placeholder-knowledge.jpg"}
+                            src={related.image || "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=200"}
                             alt={related.title}
                             fill
                             className="object-cover"
+                            onError={e => {
+                              const target = e.target as HTMLImageElement;
+                              const fallback = "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=200";
+                              if (target.src !== fallback) target.src = fallback;
+                            }}
                           />
                         </div>
                         <div>
@@ -168,27 +172,27 @@ export default function ArticlePage() {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.5 }}
-            className="lg:col-span-4 space-y-12"
+            className="lg:col-span-4 space-y-8"
           >
             {/* References */}
-            <div className="glass p-8 rounded-[2rem] space-y-6">
-              <h3 className="text-lg font-display font-bold text-text-primary flex items-center gap-2">
-                <BookOpen size={18} className="text-primary" />
+            <div className="glass p-8 rounded-[2rem] border-primary/10 shadow-2xl shadow-primary/5">
+              <h3 className="text-xl font-display font-bold text-text-primary flex items-center gap-3 mb-8">
+                <BookOpen size={20} className="text-primary" />
                 References
               </h3>
-              <div className="space-y-4">
+              <div className="space-y-6">
                 {article.references.map((ref, index) => (
                   <a
                     key={index}
                     href={ref.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block group"
+                    className="block group p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-primary/30 hover:bg-primary/5 transition-all duration-300"
                   >
-                    <p className="text-sm text-text-secondary group-hover:text-primary transition-colors leading-snug">
+                    <p className="text-sm text-text-secondary group-hover:text-text-primary transition-colors leading-relaxed mb-3">
                       {ref.text}
                     </p>
-                    <div className="flex items-center gap-1 text-[10px] text-text-muted uppercase tracking-widest mt-1">
+                    <div className="flex items-center gap-2 text-[10px] text-primary font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
                       View Source <ExternalLink size={10} />
                     </div>
                   </a>
@@ -197,13 +201,14 @@ export default function ArticlePage() {
             </div>
 
             {/* Share / Actions */}
-            <div className="glass p-8 rounded-[2rem] text-center">
-              <h4 className="text-sm font-bold text-text-primary mb-4">Share this Blueprint</h4>
+            <div className="glass p-8 rounded-[2rem] border-white/5 text-center space-y-6">
+              <h4 className="text-sm font-bold text-text-primary uppercase tracking-widest">Share Blueprint</h4>
               <div className="flex justify-center gap-4">
-                <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center cursor-pointer hover:bg-primary/20 hover:border-primary/50 transition-all">
-                  <Tag size={16} />
-                </div>
-                {/* Add more social icons here */}
+                {[Tag, ExternalLink].map((Icon, i) => (
+                  <div key={i} className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center cursor-pointer hover:bg-primary/20 hover:border-primary/50 hover:text-primary transition-all duration-300">
+                    <Icon size={20} />
+                  </div>
+                ))}
               </div>
             </div>
           </motion.aside>

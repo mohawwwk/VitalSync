@@ -20,9 +20,10 @@ const AICoach = ({ userData }: { userData: any }) => {
   }, [messages]);
 
   const handleSend = async () => {
-    if (!input.trim()) return;
+    const messageToSend = input.trim();
+    if (!messageToSend) return;
     
-    const userMsg = { role: "user", content: input };
+    const userMsg = { role: "user", content: messageToSend };
     setMessages(prev => [...prev, userMsg]);
     setInput("");
     setIsTyping(true);
@@ -32,31 +33,27 @@ const AICoach = ({ userData }: { userData: any }) => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          message: input,
+          message: messageToSend,
           userData: userData,
         }),
       });
 
+      const data = await res.json();
       if (res.ok) {
-        const data = await res.json();
-        const aiMsg = { role: "assistant", content: data.response };
+        const aiMsg = { role: "assistant", content: data.response || "I've processed your request. How else can I help?" };
         setMessages(prev => [...prev, aiMsg]);
-        setIsTyping(false);
       } else {
-        throw new Error("Chat failed");
+        throw new Error(data.error || "Chat failed");
       }
-    } catch (err) {
-      setTimeout(() => {
-        const responses = [
-          "That's understandable given your sleep data. Have you tried the Box Breathing I recommended?",
-          "Your current energy pattern suggests you should avoid caffeine right now. Try some herbal tea instead.",
-          "I noticed your stress levels peaking. Let's focus on a quick 5-minute mindfulness session.",
-          "Remember, small consistent steps are better than a complete overhaul. How about a 10-minute walk?"
-        ];
-        const aiMsg = { role: "assistant", content: responses[Math.floor(Math.random() * responses.length)] };
-        setMessages(prev => [...prev, aiMsg]);
-        setIsTyping(false);
-      }, 1500);
+    } catch (err: any) {
+      console.error("Chat Client Error:", err);
+      const aiMsg = { 
+        role: "assistant", 
+        content: "I'm having a bit of trouble connecting to my neural network right now. But based on your profile, I'd suggest focusing on deep breathing for 2 minutes." 
+      };
+      setMessages(prev => [...prev, aiMsg]);
+    } finally {
+      setIsTyping(false);
     }
   };
 

@@ -22,7 +22,7 @@ export default function RootLayout({
           <CustomCursor />
           <div className="noise-overlay" />
           <Navbar />
-          <main className="relative z-10 pt-20">
+          <main className="relative z-10">
             {children}
           </main>
           <Footer />

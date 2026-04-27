@@ -29,7 +29,7 @@ function LoginForm() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Login failed");
 
-      router.push(from);
+      window.location.href = from;
     } catch (err: any) {
       setError(err.message);
     } finally {

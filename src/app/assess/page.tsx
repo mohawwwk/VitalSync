@@ -33,7 +33,8 @@ const AssessmentPage = () => {
       }
     };
     checkAuth();
-  }, [router]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Run only on mount
 
   if (loading) {
     return (

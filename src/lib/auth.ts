@@ -1,8 +1,11 @@
-import jwt from "jsonwebtoken";
+import { SignJWT, jwtVerify } from "jose";
 import bcrypt from "bcrypt";
 import { cookies } from "next/headers";
 
 const JWT_SECRET = process.env.JWT_SECRET || "fallback-secret-change-me";
+const encodedSecret = new TextEncoder().encode(JWT_SECRET);
+
+export { encodedSecret };
 
 export async function hashPassword(password: string) {
   return await bcrypt.hash(password, 12);
@@ -12,27 +15,34 @@ export async function comparePassword(password: string, hash: string) {
   return await bcrypt.compare(password, hash);
 }
 
-export function generateToken(payload: any) {
-  return jwt.sign(payload, JWT_SECRET, { expiresIn: "7d" });
+export async function generateToken(payload: any) {
+  return await new SignJWT(payload)
+    .setProtectedHeader({ alg: "HS256" })
+    .setIssuedAt()
+    .setExpirationTime("7d")
+    .sign(encodedSecret);
 }
 
-export function setAuthCookie(token: string) {
-  cookies().set("token", token, {
+export async function setAuthCookie(token: string) {
+  const cookieStore = await cookies();
+  cookieStore.set("token", token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
+    sameSite: "lax",
     maxAge: 60 * 60 * 24 * 7, // 7 days
     path: "/",
   });
 }
 
-export function getAuthToken() {
-  return cookies().get("token")?.value;
+export async function getAuthToken() {
+  const cookieStore = await cookies();
+  return cookieStore.get("token")?.value;
 }
 
-export function verifyToken(token: string) {
+export async function verifyToken(token: string) {
   try {
-    return jwt.verify(token, JWT_SECRET);
+    const { payload } = await jwtVerify(token, encodedSecret);
+    return payload;
   } catch (error) {
     return null;
   }

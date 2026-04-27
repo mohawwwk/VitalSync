@@ -84,14 +84,15 @@ const KnowledgeHub = () => {
           >
             <Link href={`/knowledge/${articles[0].id}`}>
               <Image
-                src={articles[0].image || "/placeholder-knowledge.jpg"}
+                src={articles[0].image || "https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&q=80&w=2000"}
                 alt={articles[0].title}
                 fill
                 priority
                 className="object-cover transition-transform duration-1000 group-hover:scale-105"
                 onError={e => {
                   const target = e.target as HTMLImageElement;
-                  if (target.src !== '/placeholder-knowledge.jpg') target.src = '/placeholder-knowledge.jpg';
+                  const fallback = "https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&q=80&w=2000";
+                  if (target.src !== fallback) target.src = fallback;
                 }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
@@ -103,9 +104,9 @@ const KnowledgeHub = () => {
                 <h2 className="text-5xl font-display font-bold text-white group-hover:text-primary transition-colors">{articles[0].title}</h2>
                 <p className="text-text-secondary text-lg leading-relaxed">{articles[0].description}</p>
                 <div className="flex items-center gap-6 pt-4">
-                  <button className="flex items-center gap-2 text-primary font-bold">
+                  <div className="flex items-center gap-2 text-primary font-bold">
                     Read Full Thesis <ChevronRight size={20} />
-                  </button>
+                  </div>
                   {articles[0].youtubeLinks.length > 0 && (
                     <div className="flex items-center gap-2 text-accent font-bold">
                       Watch Lecture <Play size={16} fill="currentColor" />
@@ -142,13 +143,14 @@ const KnowledgeHub = () => {
                   <GlassCard className="h-full flex flex-col overflow-hidden border-white/5 group-hover:border-primary/30 transition-all duration-500">
                     <div className="relative h-48 overflow-hidden">
                       <Image
-                        src={article.image || "/placeholder-knowledge.jpg"}
+                        src={article.image || "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=1000"}
                         alt={article.title}
                         fill
                         className="object-cover group-hover:scale-110 transition-transform duration-700"
                         onError={e => {
                           const target = e.target as HTMLImageElement;
-                          if (target.src !== '/placeholder-knowledge.jpg') target.src = '/placeholder-knowledge.jpg';
+                          const fallback = "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=1000";
+                          if (target.src !== fallback) target.src = fallback;
                         }}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
@@ -209,7 +211,12 @@ const KnowledgeHub = () => {
               <h2 className="text-4xl font-display font-bold text-text-primary">Masterclasses.</h2>
               <p className="text-text-secondary">Guided deep-dives from our resident experts.</p>
             </div>
-            <button className="text-primary font-bold flex items-center gap-2">View Archive <ChevronRight size={20} /></button>
+            <button 
+              onClick={() => { setActiveCategory("All"); setSearchQuery(""); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+              className="text-primary font-bold flex items-center gap-2 hover:underline transition-all"
+            >
+              View Archive <ChevronRight size={20} />
+            </button>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -221,10 +228,15 @@ const KnowledgeHub = () => {
               >
                 <div className="absolute inset-0 bg-primary/20 group-hover:bg-primary/30 transition-colors" />
                 <Image
-                  src={article.image || "/placeholder-knowledge.jpg"}
+                  src={article.image || "https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&q=80&w=1000"}
                   alt={article.title}
                   fill
                   className="object-cover opacity-50 group-hover:opacity-70 transition-opacity"
+                  onError={e => {
+                    const target = e.target as HTMLImageElement;
+                    const fallback = "https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&q=80&w=1000";
+                    if (target.src !== fallback) target.src = fallback;
+                  }}
                 />
                 <div className="absolute inset-0 flex flex-col items-center justify-center space-y-4">
                   <div className="w-20 h-20 bg-white text-primary rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform">

@@ -53,7 +53,8 @@ const DashboardPage = () => {
       }
     };
     fetchData();
-  }, [router, setResults, results]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Run only on mount to prevent loops
 
   if (loading) {
     return (
@@ -83,9 +84,14 @@ const DashboardPage = () => {
     );
   }
 
-  // If no data is available at this point, we should have already redirected.
-  // But just in case, we check it here.
-  if (!data) return null;
+  // If no data is available at this point, show loading instead of blank screen
+  if (!data) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <Loader2 className="w-10 h-10 text-primary animate-spin" />
+      </div>
+    );
+  }
 
   const dashboardData = data;
 

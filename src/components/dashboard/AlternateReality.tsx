@@ -24,10 +24,13 @@ const AlternateReality = () => {
         <select
           value={selected.id}
           onChange={(e) => setSelected(scenarios.find(s => s.id === e.target.value) || scenarios[0])}
-          className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-primary transition-colors text-sm"
+          className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-primary transition-colors text-sm text-text-primary appearance-none cursor-pointer hover:bg-white/10"
+          style={{ backgroundColor: '#1a1a1a' }} // Explicit background to ensure visibility
         >
           {scenarios.map(s => (
-            <option key={s.id} value={s.id}>{s.label}</option>
+            <option key={s.id} value={s.id} className="bg-[#1a1a1a] text-white">
+              {s.label}
+            </option>
           ))}
         </select>
 

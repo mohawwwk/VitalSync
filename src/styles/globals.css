@@ -72,3 +72,23 @@ h1, h2, h3, h4, h5, h6 {
 .glass-dark {
   @apply bg-black/20 backdrop-blur-xl border border-white/5;
 }
+
+/* Fix Dropdown Visibility */
+select option {
+  background-color: #1a1a24; /* Matching --surface-elevated */
+  color: #f0effe; /* Matching --text-primary */
+}
+
+select {
+  color-scheme: dark; /* Helps with native UI elements on some browsers */
+}
+
+/* Ensure form elements have high contrast */
+input::placeholder {
+  color: #8b8a9b; /* --text-secondary */
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--primary) !important;
+  outline: none;
+}

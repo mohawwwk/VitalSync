@@ -32,7 +32,8 @@ const ProfilePage = () => {
       }
     };
     fetchUser();
-  }, [router]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Run only on mount
 
   const handleLogout = async () => {
     try {
@@ -40,17 +41,17 @@ const ProfilePage = () => {
       await fetch("/api/auth/logout", { method: "POST" });
       // Reset assessment store to clear local storage
       resetAssessment();
-      // Redirect to login
-      router.push("/login");
+      // Redirect to login with force reload
+      window.location.href = "/login";
     } catch (err) {
       console.error("Logout error:", err);
       // Even if API fails, clear local data and redirect
       resetAssessment();
-      router.push("/login");
+      window.location.href = "/login";
     }
   };
 
-  if (loading) {
+  if (loading || !user) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
         <Loader2 className="w-10 h-10 text-primary animate-spin" />

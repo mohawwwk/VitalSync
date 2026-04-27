@@ -8,13 +8,6 @@ export async function fetchWithAuth(url: string, options: RequestInit = {}) {
     },
   });
 
-  if (res.status === 401) {
-    // Handle unauthorized - maybe redirect to login or clear token
-    if (typeof window !== 'undefined') {
-      window.location.href = '/login';
-    }
-  }
-
   return res;
 }
 

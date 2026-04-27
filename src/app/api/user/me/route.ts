@@ -6,12 +6,15 @@ export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
-    const token = getAuthToken();
+    const token = await getAuthToken();
     if (!token) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const decoded: any = verifyToken(token);
+    const decoded: any = await verifyToken(token);
+    if (!decoded) {
+      return NextResponse.json({ error: "Invalid token" }, { status: 401 });
+    }
     const userId = parseInt(decoded.userId);
 
     const user = await prisma.user.findUnique({

@@ -5,16 +5,27 @@ import { getAuthToken, verifyToken } from "@/lib/auth";
 export async function POST(req: Request) {
   try {
     const { message, userData } = await req.json();
-    const token = getAuthToken();
-    const decoded: any = token ? verifyToken(token) : null;
+    const token = await getAuthToken();
+    const decoded: any = token ? await verifyToken(token) : null;
+
+    if (!decoded || !decoded.userId) {
+      return NextResponse.json({ error: "Unauthorized. Please log in to chat with AI Coach." }, { status: 401 });
+    }
 
     const systemPrompt = `
       You are an expert wellness coach named Zealous AI. 
-      You have analyzed the user's data: ${JSON.stringify(userData)}.
+      ${userData ? `You have analyzed the user's data: ${JSON.stringify(userData)}.` : "The user hasn't provided their data yet, so provide general wellness advice."}
       Respond to the user's message in a helpful, empathetic, and professional tone.
       Keep your responses concise (max 2-3 sentences) and focused on wellness, Ayurveda, and productivity.
-      Use the user's wellness profile to personalize your advice.
+      If the user's wellness profile is available, use it to personalize your advice.
+      
+      IMPORTANT: You must return your response as a valid JSON object with a "response" key.
+      Example: { "response": "Your message here..." }
     `;
+
+    if (!message) {
+      return NextResponse.json({ error: "Message is required" }, { status: 400 });
+    }
 
     const grokResponse = await callGrok(systemPrompt, message);
     
