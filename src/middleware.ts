@@ -11,6 +11,7 @@ export function middleware(request: NextRequest) {
     pathname.startsWith("/login") || 
     pathname.startsWith("/signup") || 
     pathname.startsWith("/about") ||
+    pathname.startsWith("/assess") ||
     pathname.startsWith("/api/auth");
 
   // If there's no token and the user is trying to access a private route, redirect to login

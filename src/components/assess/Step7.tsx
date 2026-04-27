@@ -13,6 +13,19 @@ const Step7 = () => {
   const router = useRouter();
 
   const handleSubmit = async () => {
+    // Check if user is logged in first
+    try {
+      const checkRes = await fetch("/api/user/me");
+      if (!checkRes.ok) {
+        // Not logged in - redirect to signup but keep assessment data in store
+        router.push("/signup");
+        return;
+      }
+    } catch (err) {
+      router.push("/signup");
+      return;
+    }
+
     setIsSubmitting(true);
     
     const texts = [

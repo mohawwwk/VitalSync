@@ -6,12 +6,14 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { User, Settings, Shield, Bell, LogOut, ChevronRight, Activity, Calendar, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useAssessmentStore } from "@/store/useAssessmentStore";
 
 const ProfilePage = () => {
   const [activeTab, setActiveTab] = useState("Profile");
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const resetAssessment = useAssessmentStore((state) => state.reset);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -33,9 +35,19 @@ const ProfilePage = () => {
   }, [router]);
 
   const handleLogout = async () => {
-    // We should create a logout route that clears the cookie
-    await fetch("/api/auth/logout", { method: "POST" });
-    router.push("/login");
+    try {
+      // Clear the cookie on the server
+      await fetch("/api/auth/logout", { method: "POST" });
+      // Reset assessment store to clear local storage
+      resetAssessment();
+      // Redirect to login
+      router.push("/login");
+    } catch (err) {
+      console.error("Logout error:", err);
+      // Even if API fails, clear local data and redirect
+      resetAssessment();
+      router.push("/login");
+    }
   };
 
   if (loading) {

@@ -12,62 +12,45 @@ import DigitalTwin from "@/components/dashboard/DigitalTwin";
 import AlternateReality from "@/components/dashboard/AlternateReality";
 import WeeklyPlan from "@/components/dashboard/WeeklyPlan";
 import AICoach from "@/components/dashboard/AICoach";
+import { useRouter } from "next/navigation";
 import { useAssessmentStore } from "@/store/useAssessmentStore";
 
-// Sample data for initial build - in real app, fetch from API
-const sampleData = {
-  overallScore: 68,
-  dimensions: { physical: 75, mental: 60, emotional: 55, sleep: 40, energy: 65, nutrition: 80, social: 90, spiritual: 50 },
-  dominantDosha: "Vata",
-  rootCause: "Chronic Sleep Deprivation",
-  rootCauseImpact: "Lowered cognitive focus and increased emotional reactivity.",
-  burnoutRisk: "HIGH",
-  cognitiveLoad: 82,
-  personalityType: "The Driven Overthinker",
-  top3Recommendations: [
-    { title: "Digital Sunset", description: "No screens 90 minutes before bed.", priority: "Critical" },
-    { title: "Magnesium Rich Foods", description: "Incorporate seeds and leafy greens into dinner.", priority: "High" },
-    { title: "Box Breathing", description: "4-4-4-4 rhythm for 5 minutes twice daily.", priority: "Medium" }
-  ],
-  alternateReality: { ifYouFixRootCause: { stressChange: -30, energyChange: 45, focusChange: 50, sleepChange: 60 } },
-  weeklyPlan: [
-    { day: "Monday", morning: "Light stretching", afternoon: "Short walk", evening: "Chamomile tea" },
-    { day: "Tuesday", morning: "Meditation", afternoon: "High protein lunch", evening: "Early bed" },
-    { day: "Wednesday", morning: "Yoga", afternoon: "Salad bowl", evening: "Read a book" },
-    { day: "Thursday", morning: "Journaling", afternoon: "Matcha tea", evening: "Warm bath" },
-    { day: "Friday", morning: "Pilates", afternoon: "Outdoor work", evening: "Music session" },
-    { day: "Saturday", morning: "Nature walk", afternoon: "Social lunch", evening: "Deep sleep" },
-    { day: "Sunday", morning: "Slow morning", afternoon: "Meal prep", evening: "Reflection" }
-  ]
-};
-
 const DashboardPage = () => {
-  const { results } = useAssessmentStore();
-  const [data, setData] = useState<any>(results);
-  const [loading, setLoading] = useState(!results);
+  const { results, setResults } = useAssessmentStore();
+  const [data, setData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
-      if (results) {
-        setLoading(false);
-        return;
-      }
       try {
         const res = await fetch("/api/ai/latest-assessment");
         if (res.ok) {
           const result = await res.json();
           setData(result);
+          // Sync store with database
+          setResults(result);
+        } else if (res.status === 404) {
+          // No assessment found in DB for this user
+          // Clear any local results that might be "fake" or from other users
+          setResults(null);
+          router.push("/assess");
+          return;
         } else {
-          setData(sampleData);
+          // Other error (unauthorized, etc)
+          router.push("/login");
+          return;
         }
       } catch (err) {
-        setData(sampleData);
+        console.error("Dashboard Fetch Error:", err);
+        router.push("/assess");
+        return;
       } finally {
         setLoading(false);
       }
     };
     fetchData();
-  }, [results]);
+  }, [router, setResults]);
 
   if (loading) {
     return (
@@ -77,7 +60,11 @@ const DashboardPage = () => {
     );
   }
 
-  const dashboardData = data || sampleData;
+  // If no data is available at this point, we should have already redirected.
+  // But just in case, we check it here.
+  if (!data) return null;
+
+  const dashboardData = data;
 
   return (
     <div className="min-h-screen pt-24 pb-12 px-6 bg-background">
