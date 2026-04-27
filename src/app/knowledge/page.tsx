@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { Search, Tag, Clock, ChevronRight, Play } from "lucide-react";
 import { GlassCard } from "@/components/shared/GlassCard";
 import { cn } from "@/lib/utils";
@@ -103,10 +104,12 @@ const KnowledgeHub = () => {
             animate={{ opacity: 1, y: 0 }}
             className="group relative h-[500px] rounded-[3rem] overflow-hidden cursor-pointer"
           >
-            <img 
+            <Image 
               src={articles[0].image} 
               alt={articles[0].title} 
-              className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" 
+              fill
+              priority
+              className="object-cover transition-transform duration-1000 group-hover:scale-105" 
             />
             <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
             <div className="absolute bottom-0 left-0 p-12 space-y-4 max-w-3xl">
@@ -134,10 +137,11 @@ const KnowledgeHub = () => {
             >
               <GlassCard className="group h-full flex flex-col overflow-hidden border-transparent hover:border-primary/20 transition-all">
                 <div className="h-56 overflow-hidden relative">
-                  <img 
+                  <Image 
                     src={article.image} 
                     alt={article.title} 
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-110" 
                   />
                   <div className="absolute top-4 right-4 px-3 py-1 bg-black/40 backdrop-blur-md rounded-full text-[10px] font-bold text-white uppercase tracking-widest">
                     {article.category}

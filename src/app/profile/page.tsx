@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { User, Settings, Shield, Bell, LogOut, ChevronRight, Activity, Calendar, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -97,8 +98,8 @@ const ProfilePage = () => {
               {/* Header Info */}
               <div className="glass p-10 rounded-[3rem] flex flex-col md:flex-row items-center gap-10">
                 <div className="w-32 h-32 rounded-[2.5rem] bg-gradient-to-br from-primary to-accent p-1 relative group">
-                  <div className="w-full h-full bg-background rounded-[2.2rem] flex items-center justify-center overflow-hidden">
-                    <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${user?.name || 'Vitality'}`} alt="User" className="w-full h-full object-cover" />
+                  <div className="w-full h-full bg-background rounded-[2.2rem] flex items-center justify-center overflow-hidden relative">
+                    <Image src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${user?.name || 'Vitality'}`} alt="User" fill className="object-cover" />
                   </div>
                 </div>
                 <div className="text-center md:text-left space-y-2 flex-1">

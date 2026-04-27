@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { Calendar, Clock, MapPin, Video, ChevronRight, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -81,8 +82,8 @@ const BookingPage = () => {
                       whileTap={{ scale: 0.99 }}
                     >
                       <div className="flex flex-col md:flex-row gap-6">
-                        <div className="w-24 h-24 bg-primary/20 rounded-2xl flex-shrink-0 overflow-hidden">
-                          <img src={expert.image} alt={expert.name} className="w-full h-full object-cover" />
+                        <div className="w-24 h-24 bg-primary/20 rounded-2xl flex-shrink-0 overflow-hidden relative">
+                          <Image src={expert.image} alt={expert.name} fill className="object-cover" />
                         </div>
                         <div className="flex-1 space-y-3">
                           <div className="flex justify-between items-start">
@@ -223,8 +224,8 @@ const BookingPage = () => {
               
               <div className="space-y-6">
                 <div className="flex gap-4">
-                  <div className="w-12 h-12 bg-primary/20 rounded-xl flex-shrink-0 overflow-hidden">
-                    <img src={selectedExpert.image} alt="" className="w-full h-full object-cover" />
+                  <div className="w-12 h-12 bg-primary/20 rounded-xl flex-shrink-0 overflow-hidden relative">
+                    <Image src={selectedExpert.image} alt={selectedExpert.name} fill className="object-cover" />
                   </div>
                   <div>
                     <div className="text-sm font-bold text-text-primary">{selectedExpert.name}</div>
